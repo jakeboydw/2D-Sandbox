@@ -9,4 +9,5 @@ public class BiomeClass
 
     public float terrainFreq;
     public int heightMultiplier;
+    public int dirtLayerHeight;
 }

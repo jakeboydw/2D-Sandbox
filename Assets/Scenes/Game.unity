@@ -258,19 +258,22 @@ MonoBehaviour:
   seed: 0
   worldSize: 50
   heightAddition: 20
+  caveNoiseTexture: {fileID: 0}
+  caveFreq: 0.06
+  limit: 0.3
   biomeGradient:
     serializedVersion: 2
-    key0: {r: 1, g: 0, b: 0, a: 1}
-    key1: {r: 1, g: 1, b: 1, a: 1}
-    key2: {r: 0, g: 0, b: 0, a: 0}
+    key0: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 0, g: 1, b: 0, a: 1}
+    key2: {r: 1, g: 0.92156863, b: 0.015686275, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
     key5: {r: 0, g: 0, b: 0, a: 0}
     key6: {r: 0, g: 0, b: 0, a: 0}
     key7: {r: 0, g: 0, b: 0, a: 0}
-    ctime0: 32768
-    ctime1: 65535
-    ctime2: 0
+    ctime0: 21823
+    ctime1: 43712
+    ctime2: 65535
     ctime3: 0
     ctime4: 0
     ctime5: 0
@@ -286,11 +289,29 @@ MonoBehaviour:
     atime7: 0
     m_Mode: 1
     m_ColorSpace: -1
-    m_NumColorKeys: 2
+    m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   biomeMap: {fileID: 0}
-  biomeFreq: 0.01
-  biomes: []
+  biomeFreq: 0.03
+  biomes:
+  - name: Snow
+    biomeColor: {r: 1, g: 1, b: 1, a: 1}
+    tileAtlas: {fileID: 11400000, guid: e2bca987f085d5a4aa3bfababfa6a315, type: 2}
+    terrainFreq: 0.02
+    heightMultiplier: 8
+    dirtLayerHeight: 7
+  - name: Grassland
+    biomeColor: {r: 0, g: 1, b: 0, a: 1}
+    tileAtlas: {fileID: 11400000, guid: 78f85425ee5722b4b90cee19db3a74ac, type: 2}
+    terrainFreq: 0.04
+    heightMultiplier: 12
+    dirtLayerHeight: 5
+  - name: Desert
+    biomeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+    tileAtlas: {fileID: 11400000, guid: a132d796465af1741bb009003bb2a7aa, type: 2}
+    terrainFreq: 0.03
+    heightMultiplier: 10
+    dirtLayerHeight: 10
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

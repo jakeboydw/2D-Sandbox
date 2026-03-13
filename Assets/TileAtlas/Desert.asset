@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca4759dcd37ff8142b5e4662403aea8c, type: 3}
   m_Name: Desert
   m_EditorClassIdentifier: Assembly-CSharp::TileAtlas
-  grass: {fileID: 0}
-  dirt: {fileID: 0}
-  stone: {fileID: 0}
+  grass: {fileID: 11400000, guid: 811ac5b2c71b21b4199bdd5b73cf716c, type: 2}
+  dirt: {fileID: 11400000, guid: 811ac5b2c71b21b4199bdd5b73cf716c, type: 2}
+  stone: {fileID: 11400000, guid: 811ac5b2c71b21b4199bdd5b73cf716c, type: 2}

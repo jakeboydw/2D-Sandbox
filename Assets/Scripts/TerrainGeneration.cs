@@ -9,7 +9,7 @@ public class TerrainGeneration : MonoBehaviour
     public int heightAddition;
     public Texture2D caveNoiseTexture;
     public float caveFreq;
-    public float limit;
+    public float caveLimit;
 
     [Header("BiomeSettings")]
     public Gradient biomeGradient;
@@ -23,11 +23,23 @@ public class TerrainGeneration : MonoBehaviour
     {
         seed = Random.Range(-10000, 10000);
 
+        //biomes
         biomeMap = new Texture2D(worldSize, worldSize);
         DrawBiomeMap();
 
+        //caves
         caveNoiseTexture = new Texture2D(worldSize, worldSize);
-        DrawNoiseTexture();
+        DrawNoiseTexture(caveNoiseTexture, caveFreq, caveLimit);
+
+        //ores
+        for (int i = 0; i < biomes.Length; i++)
+        {
+            for (int j = 0; j < biomes[i].ores.Length; j++)
+            {
+                biomes[i].ores[j].spreadTexture = new Texture2D(worldSize, worldSize);
+                DrawNoiseTexture(biomes[i].ores[j].spreadTexture, biomes[i].ores[j].frequency, biomes[i].ores[j].size);
+            }
+        }
 
         GenerateTerrain();
     }
@@ -45,6 +57,23 @@ public class TerrainGeneration : MonoBehaviour
                 if (y < height - curBiome.dirtLayerHeight)
                 {
                     tileSprites = curBiome.tileAtlas.stone.tileSprites;
+
+                    if (curBiome.ores[0].spreadTexture.GetPixel(x, y).r > 0.5f && height - y > curBiome.ores[0].minSpawnDepth)
+                    {
+                        tileSprites = curBiome.tileAtlas.coal.tileSprites;
+                    }
+                    if (curBiome.ores[1].spreadTexture.GetPixel(x, y).r > 0.5f && height - y > curBiome.ores[1].minSpawnDepth)
+                    {
+                        tileSprites = curBiome.tileAtlas.iron.tileSprites;
+                    }
+                    if (curBiome.ores[2].spreadTexture.GetPixel(x, y).r > 0.5f && height - y > curBiome.ores[2].minSpawnDepth)
+                    {
+                        tileSprites = curBiome.tileAtlas.gold.tileSprites;
+                    }
+                    if (curBiome.ores[3].spreadTexture.GetPixel(x, y).r > 0.5f && height - y > curBiome.ores[3].minSpawnDepth)
+                    {
+                        tileSprites = curBiome.tileAtlas.diamond.tileSprites;
+                    }
                 }
                 else if (y < height - 1)
                 {
@@ -56,7 +85,9 @@ public class TerrainGeneration : MonoBehaviour
                 }
 
                 if (caveNoiseTexture.GetPixel(x, y).r > 0.5f)
+                {
                     PlaceTile(tileSprites, x, y);
+                }
             }
         }
     }
@@ -87,24 +118,24 @@ public class TerrainGeneration : MonoBehaviour
         return null;
     }
 
-    public void DrawNoiseTexture()
+    public void DrawNoiseTexture(Texture2D noiseTexture, float frequency, float limit)
     {
-        for (int x = 0; x < caveNoiseTexture.width; x++)
+        for (int x = 0; x < noiseTexture.width; x++)
         {
-            for (int y = 0;y < caveNoiseTexture.height; y++)
+            for (int y = 0;y < noiseTexture.height; y++)
             {
-                float v = Mathf.PerlinNoise((x + seed) * caveFreq, (y + seed) * caveFreq);
+                float v = Mathf.PerlinNoise((x + seed) * frequency, (y + seed) * frequency);
                 if (v > limit)
                 {
-                    caveNoiseTexture.SetPixel(x, y, Color.white);
+                    noiseTexture.SetPixel(x, y, Color.white);
                 }
                 else
                 {
-                    caveNoiseTexture.SetPixel(x, y, Color.black);
+                    noiseTexture.SetPixel(x, y, Color.black);
                 }
             }
         }
-        caveNoiseTexture.Apply();
+        noiseTexture.Apply();
     }
 
     public void PlaceTile(Sprite[] tileSprites, int x, int y)

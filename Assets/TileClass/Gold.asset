@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e2735b0d2e6f2784a93153a79a808521, type: 3}
-  m_Name: Snow
+  m_Name: Gold
   m_EditorClassIdentifier: Assembly-CSharp::TileClass
-  tileName: Snow
+  tileName: Gold
   tileSprites:
-  - {fileID: -1400380224172793896, guid: 682309e9ab349bc40bf284fdfd111877, type: 3}
+  - {fileID: -6299075595831159393, guid: efbe220c5823f0c49818ef8088cc89d3, type: 3}
+  - {fileID: -6851385776335332034, guid: 0f616d232df9bc847ab39f230dc76195, type: 3}

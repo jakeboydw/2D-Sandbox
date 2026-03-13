@@ -321,6 +321,10 @@ MonoBehaviour:
       size: 0.9
       spreadTexture: {fileID: 0}
       minSpawnDepth: 30
+    tallGrassChance: 0
+    treeChance: 0
+    minTreeHeight: 0
+    maxTreeHeight: 0
   - name: Grassland
     biomeColor: {r: 0, g: 1, b: 0, a: 1}
     tileAtlas: {fileID: 11400000, guid: 78f85425ee5722b4b90cee19db3a74ac, type: 2}
@@ -348,6 +352,10 @@ MonoBehaviour:
       size: 0.9
       spreadTexture: {fileID: 0}
       minSpawnDepth: 30
+    tallGrassChance: 10
+    treeChance: 20
+    minTreeHeight: 4
+    maxTreeHeight: 6
   - name: Desert
     biomeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     tileAtlas: {fileID: 11400000, guid: a132d796465af1741bb009003bb2a7aa, type: 2}
@@ -375,6 +383,10 @@ MonoBehaviour:
       size: 0.9
       spreadTexture: {fileID: 0}
       minSpawnDepth: 34
+    tallGrassChance: 15
+    treeChance: 0
+    minTreeHeight: 0
+    maxTreeHeight: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

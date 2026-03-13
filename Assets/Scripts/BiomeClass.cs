@@ -12,4 +12,9 @@ public class BiomeClass
     public int dirtLayerHeight;
 
     public OreClass[] ores;
+
+    public int tallGrassChance;
+    public int treeChance;
+    public int minTreeHeight;
+    public int maxTreeHeight;
 }

@@ -12,4 +12,9 @@ public class TileAtlas : ScriptableObject
     public TileClass iron;
     public TileClass gold;
     public TileClass diamond;
+
+    //plants
+    public TileClass log;
+    public TileClass leaf;
+    public TileClass tallGrass;
 }

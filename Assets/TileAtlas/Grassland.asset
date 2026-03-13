@@ -19,3 +19,6 @@ MonoBehaviour:
   iron: {fileID: 11400000, guid: 1b9e07e9efa2d6a4c90e9f1b26b6372b, type: 2}
   gold: {fileID: 11400000, guid: 8307facf2a426404592e9c721676061a, type: 2}
   diamond: {fileID: 11400000, guid: 99ab4c62a2eae704f889a7b73b946d72, type: 2}
+  log: {fileID: 11400000, guid: 555bbefc72452ea4090dfa8844497ad9, type: 2}
+  leaf: {fileID: 11400000, guid: c0b878592d5fb2343b7acddb9f91f931, type: 2}
+  tallGrass: {fileID: 11400000, guid: ba63a457cd2e6e54c929c8d9ec007ced, type: 2}

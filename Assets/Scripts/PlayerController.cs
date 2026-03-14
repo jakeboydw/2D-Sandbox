@@ -13,10 +13,13 @@ public class PlayerController : MonoBehaviour
 
     private InputControls control;
 
+    private Animator anim;
+
     private void Awake()
     {
         control = new InputControls();
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
 
         control.Player.Jump.started += Jump;
     }
@@ -58,6 +61,8 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         inputDirection = control.Player.Move.ReadValue<Vector2>();
+
+        anim.SetFloat("horizontalSpeed", inputDirection.x);
     }
 
     private void FixedUpdate()

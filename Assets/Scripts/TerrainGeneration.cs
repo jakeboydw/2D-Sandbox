@@ -190,6 +190,10 @@ public class TerrainGeneration : MonoBehaviour
             Sprite tileSprite = tileSprites[spriteIndex];
             tile.GetComponent<SpriteRenderer>().sprite = tileSprite;
 
+            tile.AddComponent<BoxCollider2D>();
+            tile.GetComponent<BoxCollider2D>().size = Vector2.one;
+            tile.tag = "Ground";
+
             tile.name = tileSprites[0].name;
             tile.transform.position = new Vector2(x + 0.5f, y + 0.5f);
 

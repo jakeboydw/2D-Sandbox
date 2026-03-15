@@ -15,3 +15,4 @@ MonoBehaviour:
   tileName: Leaf
   tileSprites:
   - {fileID: -2613479253483919953, guid: 21e5eb3846ec55140a2877e40f8d087c, type: 3}
+  isSolid: 0

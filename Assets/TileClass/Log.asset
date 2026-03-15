@@ -15,3 +15,4 @@ MonoBehaviour:
   tileName: Log
   tileSprites:
   - {fileID: 6535173978316254009, guid: 1e22afccc88c6e848a3db374987d9546, type: 3}
+  isSolid: 0

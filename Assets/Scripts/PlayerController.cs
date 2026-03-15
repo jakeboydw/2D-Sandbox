@@ -4,6 +4,11 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    public TerrainGeneration terrainGenerator;
+
+    public Vector2 spawnPos;
+    public Vector2Int mousePos;
+
     public float moveSpeed;
     public float jumpForce;
 
@@ -18,10 +23,16 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         control = new InputControls();
+        control.Player.Jump.started += Jump;
+        control.Player.Hit.started += Hit;
+    }
+
+    public void Spawn()
+    {
+        transform.position = spawnPos;
+
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-
-        control.Player.Jump.started += Jump;
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -48,6 +59,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void Hit(InputAction.CallbackContext context)
+    {
+        anim.SetTrigger("hit");
+        terrainGenerator.RemoveTile(mousePos.x, mousePos.y);
+    }
+
     private void OnEnable()
     {
         control.Enable();
@@ -60,6 +77,9 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        mousePos.x = (int) Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()).x;
+        mousePos.y = (int) Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()).y;
+
         inputDirection = control.Player.Move.ReadValue<Vector2>();
 
         anim.SetFloat("horizontalSpeed", inputDirection.x);

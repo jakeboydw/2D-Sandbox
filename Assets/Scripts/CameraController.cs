@@ -6,6 +6,11 @@ public class CameraController : MonoBehaviour
     public float smoothTime;
     public Transform player;
 
+    public void Spawn(Vector3 pos)
+    {
+        transform.position = pos;
+    }
+
     private void FixedUpdate()
     {
         Vector3 pos = transform.position;

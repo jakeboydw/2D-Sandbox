@@ -171,6 +171,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Root
       objectReference: {fileID: 0}
+    - target: {fileID: 6814901941854969971, guid: c580bbcdddc59d947805393cdb819a25, type: 3}
+      propertyPath: terrainGenerator
+      value: 
+      objectReference: {fileID: 1900531128}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -332,9 +336,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe3f7eff06c73c94dadc10ca2c61b756, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TerrainGeneration
+  player: {fileID: 2010613419}
+  cameraController: {fileID: 519420033}
   seed: 0
-  worldSize: 50
-  heightAddition: 20
+  worldSize: 30
+  heightAddition: 10
   caveNoiseTexture: {fileID: 0}
   caveFreq: 0.08
   caveLimit: 0.3
@@ -375,7 +381,7 @@ MonoBehaviour:
     biomeColor: {r: 1, g: 1, b: 1, a: 1}
     tileAtlas: {fileID: 11400000, guid: e2bca987f085d5a4aa3bfababfa6a315, type: 2}
     terrainFreq: 0.02
-    heightMultiplier: 8
+    heightMultiplier: 4
     dirtLayerHeight: 7
     ores:
     - name: Coal
@@ -406,7 +412,7 @@ MonoBehaviour:
     biomeColor: {r: 0, g: 1, b: 0, a: 1}
     tileAtlas: {fileID: 11400000, guid: 78f85425ee5722b4b90cee19db3a74ac, type: 2}
     terrainFreq: 0.04
-    heightMultiplier: 12
+    heightMultiplier: 5
     dirtLayerHeight: 5
     ores:
     - name: Coal
@@ -437,7 +443,7 @@ MonoBehaviour:
     biomeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     tileAtlas: {fileID: 11400000, guid: a132d796465af1741bb009003bb2a7aa, type: 2}
     terrainFreq: 0.03
-    heightMultiplier: 10
+    heightMultiplier: 6
     dirtLayerHeight: 10
     ores:
     - name: Coal
@@ -464,6 +470,17 @@ MonoBehaviour:
     treeChance: 0
     minTreeHeight: 0
     maxTreeHeight: 0
+--- !u!114 &2010613419 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6814901941854969971, guid: c580bbcdddc59d947805393cdb819a25, type: 3}
+  m_PrefabInstance: {fileID: 124265166}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 427c07511e5a6474687ade67775e9b3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

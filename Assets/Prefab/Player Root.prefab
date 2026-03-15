@@ -305,6 +305,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 427c07511e5a6474687ade67775e9b3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  terrainGenerator: {fileID: 0}
+  spawnPos: {x: 0, y: 0}
+  mousePos: {x: 0, y: 0}
   moveSpeed: 200
   jumpForce: 9
 --- !u!95 &8447342890906052984
@@ -590,7 +593,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 1042265344411588831, guid: 7ef1406423c39684e80b67c952e8a8e3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

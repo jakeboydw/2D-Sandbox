@@ -5,6 +5,7 @@ public class TerrainGeneration : MonoBehaviour
 {
     public PlayerController player;
     public CameraController cameraController;
+    public GameObject dropTile;
 
     public float seed;
 
@@ -23,7 +24,8 @@ public class TerrainGeneration : MonoBehaviour
 
     private BiomeClass curBiome;
     private List<Vector2Int> worldTiles = new List<Vector2Int>();
-    private List<GameObject> worldTileObjects = new List<GameObject>();
+    private Dictionary<Vector2Int, GameObject> worldTileObjects = new Dictionary<Vector2Int, GameObject>();
+    private Dictionary<Vector2Int, TileClass> worldTileClasses = new Dictionary<Vector2Int, TileClass>();
 
     private void Start()
     {
@@ -55,8 +57,7 @@ public class TerrainGeneration : MonoBehaviour
 
     public void GenerateTerrain()
     {
-        Sprite[] tileSprites;
-        bool isSolidBlock;
+        TileClass tile;
         for (int x = 0; x < worldSize; x++)
         {
             curBiome = GetCurrentBiome(x, 0);
@@ -72,44 +73,37 @@ public class TerrainGeneration : MonoBehaviour
                 curBiome = GetCurrentBiome(x, y);
                 if (y < height - curBiome.dirtLayerHeight)
                 {
-                    tileSprites = curBiome.tileAtlas.stone.tileSprites;
-                    isSolidBlock = curBiome.tileAtlas.stone.isSolid;
+                    tile = curBiome.tileAtlas.stone;
 
                     if (curBiome.ores[0].spreadTexture.GetPixel(x, y).r > 0.5f && height - y > curBiome.ores[0].minSpawnDepth)
                     {
-                        tileSprites = curBiome.tileAtlas.coal.tileSprites;
-                        isSolidBlock = curBiome.tileAtlas.coal.isSolid;
+                        tile = curBiome.tileAtlas.coal;
                     }
                     if (curBiome.ores[1].spreadTexture.GetPixel(x, y).r > 0.5f && height - y > curBiome.ores[1].minSpawnDepth)
                     {
-                        tileSprites = curBiome.tileAtlas.iron.tileSprites;
-                        isSolidBlock = curBiome.tileAtlas.iron.isSolid;
+                        tile = curBiome.tileAtlas.iron;
                     }
                     if (curBiome.ores[2].spreadTexture.GetPixel(x, y).r > 0.5f && height - y > curBiome.ores[2].minSpawnDepth)
                     {
-                        tileSprites = curBiome.tileAtlas.gold.tileSprites;
-                        isSolidBlock = curBiome.tileAtlas.gold.isSolid;
+                        tile = curBiome.tileAtlas.gold;
                     }
                     if (curBiome.ores[3].spreadTexture.GetPixel(x, y).r > 0.5f && height - y > curBiome.ores[3].minSpawnDepth)
                     {
-                        tileSprites = curBiome.tileAtlas.diamond.tileSprites;
-                        isSolidBlock = curBiome.tileAtlas.diamond.isSolid;
+                        tile = curBiome.tileAtlas.diamond;
                     }
                 }
                 else if (y < height - 1)
                 {
-                    tileSprites = curBiome.tileAtlas.dirt.tileSprites;
-                    isSolidBlock = curBiome.tileAtlas.dirt.isSolid;
+                    tile = curBiome.tileAtlas.dirt;
                 }
                 else
                 {
-                    tileSprites = curBiome.tileAtlas.grass.tileSprites;
-                    isSolidBlock = curBiome.tileAtlas.grass.isSolid;
+                    tile = curBiome.tileAtlas.grass;
                 }
 
                 if (caveNoiseTexture.GetPixel(x, y).r > 0.5f)
                 {
-                    PlaceTile(tileSprites, x, y, isSolidBlock);
+                    PlaceTile(tile, x, y);
                 }
 
                 if (y >= height - 1)
@@ -129,7 +123,7 @@ public class TerrainGeneration : MonoBehaviour
                         {
                             if (worldTiles.Contains(new Vector2Int(x, y)))
                             {
-                                PlaceTile(curBiome.tileAtlas.tallGrass.tileSprites, x, y + 1, curBiome.tileAtlas.tallGrass.isSolid);
+                                PlaceTile(curBiome.tileAtlas.tallGrass, x, y + 1);
                             }
                         }
                     }
@@ -188,50 +182,62 @@ public class TerrainGeneration : MonoBehaviour
     {
         for (int i = 0; i < treeHeight; i++)
         {
-            PlaceTile(curBiome.tileAtlas.log.tileSprites, x, y + i, curBiome.tileAtlas.log.isSolid);
+            PlaceTile(curBiome.tileAtlas.log, x, y + i);
         }
 
-        PlaceTile(curBiome.tileAtlas.leaf.tileSprites, x, y + treeHeight, curBiome.tileAtlas.leaf.isSolid);
-        PlaceTile(curBiome.tileAtlas.leaf.tileSprites, x, y + treeHeight + 1, curBiome.tileAtlas.leaf.isSolid);
-        PlaceTile(curBiome.tileAtlas.leaf.tileSprites, x, y + treeHeight + 2, curBiome.tileAtlas.leaf.isSolid);
-        PlaceTile(curBiome.tileAtlas.leaf.tileSprites, x - 1, y + treeHeight, curBiome.tileAtlas.leaf.isSolid);
-        PlaceTile(curBiome.tileAtlas.leaf.tileSprites, x - 1, y + treeHeight + 1, curBiome.tileAtlas.leaf.isSolid);
-        PlaceTile(curBiome.tileAtlas.leaf.tileSprites, x + 1, y + treeHeight, curBiome.tileAtlas.leaf.isSolid);
-        PlaceTile(curBiome.tileAtlas.leaf.tileSprites, x + 1, y + treeHeight + 1, curBiome.tileAtlas.leaf.isSolid);
+        PlaceTile(curBiome.tileAtlas.leaf, x, y + treeHeight);
+        PlaceTile(curBiome.tileAtlas.leaf, x, y + treeHeight + 1);
+        PlaceTile(curBiome.tileAtlas.leaf, x, y + treeHeight + 2);
+        PlaceTile(curBiome.tileAtlas.leaf, x - 1, y + treeHeight);
+        PlaceTile(curBiome.tileAtlas.leaf, x - 1, y + treeHeight + 1);
+        PlaceTile(curBiome.tileAtlas.leaf, x + 1, y + treeHeight);
+        PlaceTile(curBiome.tileAtlas.leaf, x + 1, y + treeHeight + 1);
     }
 
     public void RemoveTile(int x, int y)
     {
         if (worldTiles.Contains(new Vector2Int(x, y)))
         {
-            Destroy(worldTileObjects[worldTiles.IndexOf(new Vector2Int(x, y))]);
+            Destroy(worldTileObjects[new Vector2Int(x, y)]);
+            if (worldTileClasses[new Vector2Int(x, y)].canDrop)
+            {
+                GameObject newDropTile = Instantiate(dropTile, new Vector2(x, y + 0.5f), Quaternion.identity);
+                newDropTile.GetComponent<SpriteRenderer>().sprite = worldTileClasses[new Vector2Int(x, y)].tileSprites[0];
+            }
+
+            worldTiles.RemoveAt(worldTiles.IndexOf(new Vector2Int(x, y)));
+            worldTileObjects.Remove(new Vector2Int(x, y));
+            worldTileClasses.Remove(new Vector2Int(x, y));
         }
     }
 
-    public void PlaceTile(Sprite[] tileSprites, int x, int y, bool isSolid)
+    public void PlaceTile(TileClass tile, int x, int y)
     {
         if (!worldTiles.Contains(new Vector2Int(x, y)))
         {
-            GameObject tile = new GameObject();
+            GameObject newTile = new GameObject();
+            Sprite[] tileSprites = tile.tileSprites;
+            bool isSolid = tile.isSolid;
 
-            tile.AddComponent<SpriteRenderer>();
+            newTile.AddComponent<SpriteRenderer>();
             int spriteIndex = Random.Range(0, tileSprites.Length);
             Sprite tileSprite = tileSprites[spriteIndex];
-            tile.GetComponent<SpriteRenderer>().sprite = tileSprite;
-            tile.GetComponent<SpriteRenderer>().sortingOrder = -5;
+            newTile.GetComponent<SpriteRenderer>().sprite = tileSprite;
+            newTile.GetComponent<SpriteRenderer>().sortingOrder = -5;
 
             if (isSolid)
             {
-                tile.AddComponent<BoxCollider2D>();
-                tile.GetComponent<BoxCollider2D>().size = Vector2.one;
-                tile.tag = "Ground";
+                newTile.AddComponent<BoxCollider2D>();
+                newTile.GetComponent<BoxCollider2D>().size = Vector2.one;
+                newTile.tag = "Ground";
             }
 
-            tile.name = tileSprites[0].name;
-            tile.transform.position = new Vector2(x + 0.5f, y + 0.5f);
+            newTile.name = tileSprites[0].name;
+            newTile.transform.position = new Vector2(x + 0.5f, y + 0.5f);
 
             worldTiles.Add(new Vector2Int(x, y));
-            worldTileObjects.Add(tile);
+            worldTileObjects[new Vector2Int(x, y)] = newTile;
+            worldTileClasses[new Vector2Int(x, y)] = tile;
         }
     }
 }

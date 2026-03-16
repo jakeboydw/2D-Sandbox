@@ -20,3 +20,4 @@ MonoBehaviour:
   - {fileID: 2400719064819716107, guid: 9aaa37a31dcd6db4790287d5e868ef0f, type: 3}
   - {fileID: -7947570480267606925, guid: 9ffb70a1aa4485249b9a41096ef09f3f, type: 3}
   isSolid: 0
+  canDrop: 0

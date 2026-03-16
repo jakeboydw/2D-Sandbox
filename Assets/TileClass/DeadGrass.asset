@@ -17,3 +17,4 @@ MonoBehaviour:
   - {fileID: 5502506095719556529, guid: a1f4a5cb84ec67148a58cc149c071829, type: 3}
   - {fileID: -5091150573889657727, guid: bf6fdeaa41ee3ee49998108020448d9b, type: 3}
   isSolid: 0
+  canDrop: 0

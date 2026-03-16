@@ -306,6 +306,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   terrainGenerator: {fileID: 0}
+  selectedTile: {fileID: 11400000, guid: 47d1544449a1ede4cb856370dee30f94, type: 2}
+  playerRange: 5
   spawnPos: {x: 0, y: 0}
   mousePos: {x: 0, y: 0}
   moveSpeed: 200

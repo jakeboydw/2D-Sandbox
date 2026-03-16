@@ -338,6 +338,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TerrainGeneration
   player: {fileID: 2010613419}
   cameraController: {fileID: 519420033}
+  dropTile: {fileID: 6065372464473032828, guid: a62f38bcec0a2c94c87dcfcd598187ac, type: 3}
   seed: 0
   worldSize: 30
   heightAddition: 10

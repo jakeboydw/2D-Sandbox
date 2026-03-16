@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public TerrainGeneration terrainGenerator;
+    public TileClass selectedTile;
+    public float playerRange;
 
     public Vector2 spawnPos;
     public Vector2Int mousePos;
@@ -25,6 +27,7 @@ public class PlayerController : MonoBehaviour
         control = new InputControls();
         control.Player.Jump.started += Jump;
         control.Player.Hit.started += Hit;
+        control.Player.Place.started += Place;
     }
 
     public void Spawn()
@@ -61,8 +64,20 @@ public class PlayerController : MonoBehaviour
 
     private void Hit(InputAction.CallbackContext context)
     {
-        anim.SetTrigger("hit");
-        terrainGenerator.RemoveTile(mousePos.x, mousePos.y);
+        if (Vector2.Distance(transform.position, mousePos) <= playerRange)
+        {
+            anim.SetTrigger("hit");
+            terrainGenerator.RemoveTile(mousePos.x, mousePos.y);
+        }
+    }
+
+    private void Place(InputAction.CallbackContext context)
+    {
+        if (Vector2.Distance(transform.position, mousePos) <= playerRange && Vector2.Distance(transform.position, mousePos) > 1f)
+        {
+            anim.SetTrigger("hit");
+            terrainGenerator.PlaceTile(selectedTile, mousePos.x, mousePos.y);
+        }
     }
 
     private void OnEnable()

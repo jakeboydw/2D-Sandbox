@@ -102,7 +102,6 @@ GameObject:
   - component: {fileID: 1425475062830108703}
   - component: {fileID: 2761311874313712829}
   - component: {fileID: 7052567554641374843}
-  - component: {fileID: 3934694496856653434}
   - component: {fileID: 6275122779437654404}
   - component: {fileID: 6814901941854969971}
   - component: {fileID: 8447342890906052984}
@@ -132,6 +131,7 @@ Transform:
   - {fileID: 4620429718068001387}
   - {fileID: 4053235755743394372}
   - {fileID: 2719992399319056822}
+  - {fileID: 5030396954137110229}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2761311874313712829
@@ -230,43 +230,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.65, y: 1.7}
   m_Direction: 0
---- !u!70 &3934694496856653434
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3602449379095565663}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: -0.79}
-  m_Size: {x: 0.44, y: 0.59}
-  m_Direction: 0
 --- !u!50 &6275122779437654404
 Rigidbody2D:
   serializedVersion: 5
@@ -309,12 +272,12 @@ MonoBehaviour:
   inventory: {fileID: 0}
   inventoryShowing: 0
   terrainGenerator: {fileID: 0}
-  selectedTile: {fileID: 11400000, guid: 47d1544449a1ede4cb856370dee30f94, type: 2}
   playerRange: 5
   spawnPos: {x: 0, y: 0}
   mousePos: {x: 0, y: 0}
   moveSpeed: 200
   jumpForce: 9
+  onGround: 0
 --- !u!95 &8447342890906052984
 Animator:
   serializedVersion: 7
@@ -349,12 +312,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae1549ec29b3bb54081c289fc1791b48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Inventory
-  offset: {x: -200, y: -75}
+  inventoryOffset: {x: -200, y: -75}
+  hotbarOffset: {x: 40, y: -25}
   multiplier: {x: 50, y: 50}
   inventoryUI: {fileID: 0}
+  hotbarUI: {fileID: 0}
   inventorySlotPrefab: {fileID: 5625883508591973917, guid: 391d9dd9111e4164faa063863f28afa6, type: 3}
+  itemLimit: 64
   inventoryWidth: 9
   inventoryHeight: 4
+  hotbarUISlots: []
 --- !u!1 &4838973671436418636
 GameObject:
   m_ObjectHideFlags: 0
@@ -628,6 +595,88 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &6728565581671406553
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5030396954137110229}
+  - component: {fileID: 8242102343747577519}
+  - component: {fileID: 8714471254192926378}
+  m_Layer: 0
+  m_Name: GroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5030396954137110229
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6728565581671406553}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1425475062830108703}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!70 &8242102343747577519
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6728565581671406553}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: -0.79}
+  m_Size: {x: 0.44, y: 0.59}
+  m_Direction: 0
+--- !u!114 &8714471254192926378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6728565581671406553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 919d8a9d0a997b44cbf87b5e79c0dabf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GroundCheck
 --- !u!1 &8333477641864793014
 GameObject:
   m_ObjectHideFlags: 0

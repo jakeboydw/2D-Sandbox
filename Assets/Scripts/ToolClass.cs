@@ -5,4 +5,5 @@ public class ToolClass : ScriptableObject
 {
     public string toolName;
     public Sprite sprite;
+    public ItemClass.ToolType toolType;
 }

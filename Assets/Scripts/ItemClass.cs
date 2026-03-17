@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[System.Serializable]
 public class ItemClass
 {
     public enum ItemType
@@ -28,11 +29,16 @@ public class ItemClass
     {
         name = tile.tileName;
         sprite = tile.tileSprites[0];
+        itemType = ItemType.block;
+        tileClass = tile;
     }
 
     public ItemClass(ToolClass tool)
     {
         name = tool.toolName;
         sprite = tool.sprite;
+        itemType = ItemType.tool;
+        toolType = tool.toolType;
+        toolClass = tool;
     }
 }

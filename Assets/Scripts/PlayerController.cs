@@ -4,11 +4,14 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    public int selectedSlotIndex = 0;
+    public GameObject hotbarSelector;
+
     public Inventory inventory;
     public bool inventoryShowing = false;
 
     public TerrainGeneration terrainGenerator;
-    public TileClass selectedTile;
+    public ItemClass selectedItem;
     public float playerRange;
 
     public Vector2 spawnPos;
@@ -17,7 +20,8 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed;
     public float jumpForce;
 
-    private bool onGround;
+    public bool onGround;
+
     private Vector2 inputDirection;
     private Rigidbody2D rb;
 
@@ -42,22 +46,6 @@ public class PlayerController : MonoBehaviour
         inventory = GetComponent<Inventory>();
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Ground"))
-        {
-            onGround = true;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Ground"))
-        {
-            onGround = false;
-        }
-    }
-
     private void Jump(InputAction.CallbackContext context)
     {
         if (onGround)
@@ -80,7 +68,17 @@ public class PlayerController : MonoBehaviour
         if (Vector2.Distance(transform.position, mousePos) <= playerRange && Vector2.Distance(transform.position, mousePos) > 1f)
         {
             anim.SetTrigger("hit");
-            terrainGenerator.PlaceTile(selectedTile, mousePos.x, mousePos.y);
+            if (selectedItem != null)
+            {
+                if (selectedItem.itemType == ItemClass.ItemType.block)
+                {
+                    bool isPlaced = terrainGenerator.PlaceTile(selectedItem.tileClass, mousePos.x, mousePos.y);
+                    if (isPlaced)
+                    {
+                        inventory.Remove(selectedItem);
+                    }
+                }
+            }
         }
     }
 
@@ -106,9 +104,44 @@ public class PlayerController : MonoBehaviour
         if (Keyboard.current.eKey.wasPressedThisFrame)
         {
             inventoryShowing = !inventoryShowing;
+
+            if (inventoryShowing)
+            {
+                control.Player.Disable();
+            }
+            else
+            {
+                control.Player.Enable();
+            }
         }
 
         inventory.inventoryUI.SetActive(inventoryShowing);
+
+        if (Mouse.current.scroll.ReadValue().y > 0)
+        {
+            if (selectedSlotIndex < inventory.inventoryWidth - 1)
+            {
+                selectedSlotIndex += 1;
+            }
+        }
+        else if (Mouse.current.scroll.ReadValue().y < 0)
+        {
+            if (selectedSlotIndex > 0)
+            {
+                selectedSlotIndex -= 1;
+            }
+        }
+
+        hotbarSelector.transform.position = inventory.hotbarUISlots[selectedSlotIndex].transform.position;
+
+        if (inventory.inventorySlots[selectedSlotIndex, inventory.inventoryHeight - 1] != null)
+        {
+            selectedItem = inventory.inventorySlots[selectedSlotIndex, inventory.inventoryHeight - 1].item;
+        }
+        else
+        {
+            selectedItem = null;
+        }
     }
 
     private void FixedUpdate()

@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ToolClass
   toolName: Iron Pickaxe
   sprite: {fileID: -3380407553670597944, guid: 45ebeb6771f005447b656f6b924a6dc4, type: 3}
+  toolType: 1

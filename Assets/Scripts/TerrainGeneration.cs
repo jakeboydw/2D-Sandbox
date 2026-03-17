@@ -214,7 +214,7 @@ public class TerrainGeneration : MonoBehaviour
         }
     }
 
-    public void PlaceTile(TileClass tile, int x, int y)
+    public bool PlaceTile(TileClass tile, int x, int y)
     {
         if (!worldTiles.Contains(new Vector2Int(x, y)))
         {
@@ -241,6 +241,9 @@ public class TerrainGeneration : MonoBehaviour
             worldTiles.Add(new Vector2Int(x, y));
             worldTileObjects[new Vector2Int(x, y)] = newTile;
             worldTileClasses[new Vector2Int(x, y)] = tile;
+
+            return true;
         }
+        return false;
     }
 }

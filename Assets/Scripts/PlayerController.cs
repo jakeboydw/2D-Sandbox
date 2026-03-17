@@ -4,6 +4,9 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    public Inventory inventory;
+    public bool inventoryShowing = false;
+
     public TerrainGeneration terrainGenerator;
     public TileClass selectedTile;
     public float playerRange;
@@ -36,6 +39,7 @@ public class PlayerController : MonoBehaviour
 
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        inventory = GetComponent<Inventory>();
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -98,6 +102,13 @@ public class PlayerController : MonoBehaviour
         inputDirection = control.Player.Move.ReadValue<Vector2>();
 
         anim.SetFloat("horizontalSpeed", inputDirection.x);
+
+        if (Keyboard.current.eKey.wasPressedThisFrame)
+        {
+            inventoryShowing = !inventoryShowing;
+        }
+
+        inventory.inventoryUI.SetActive(inventoryShowing);
     }
 
     private void FixedUpdate()

@@ -203,6 +203,9 @@ public class TerrainGeneration : MonoBehaviour
             {
                 GameObject newDropTile = Instantiate(dropTile, new Vector2(x, y + 0.5f), Quaternion.identity);
                 newDropTile.GetComponent<SpriteRenderer>().sprite = worldTileClasses[new Vector2Int(x, y)].tileSprites[0];
+
+                ItemClass dropTileItem = new ItemClass(worldTileClasses[new Vector2Int(x, y)]);
+                newDropTile.GetComponent<DropTileController>().item = dropTileItem;
             }
 
             worldTiles.RemoveAt(worldTiles.IndexOf(new Vector2Int(x, y)));

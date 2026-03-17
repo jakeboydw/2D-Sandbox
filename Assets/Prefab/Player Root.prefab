@@ -106,6 +106,7 @@ GameObject:
   - component: {fileID: 6275122779437654404}
   - component: {fileID: 6814901941854969971}
   - component: {fileID: 8447342890906052984}
+  - component: {fileID: 7492001431452206209}
   m_Layer: 0
   m_Name: Player Root
   m_TagString: Player
@@ -305,6 +306,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 427c07511e5a6474687ade67775e9b3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  inventory: {fileID: 0}
+  inventoryShowing: 0
   terrainGenerator: {fileID: 0}
   selectedTile: {fileID: 11400000, guid: 47d1544449a1ede4cb856370dee30f94, type: 2}
   playerRange: 5
@@ -334,6 +337,24 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7492001431452206209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3602449379095565663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae1549ec29b3bb54081c289fc1791b48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Inventory
+  offset: {x: -200, y: -75}
+  multiplier: {x: 50, y: 50}
+  inventoryUI: {fileID: 0}
+  inventorySlotPrefab: {fileID: 5625883508591973917, guid: 391d9dd9111e4164faa063863f28afa6, type: 3}
+  inventoryWidth: 9
+  inventoryHeight: 4
 --- !u!1 &4838973671436418636
 GameObject:
   m_ObjectHideFlags: 0
